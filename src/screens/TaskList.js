@@ -3,6 +3,7 @@ import { ImageBackground, Text, View, StyleSheet } from 'react-native';
 import moment from 'moment';
 import 'moment/locale/en-ca';
 
+import commonStyles from '../commomStyles';
 import todayImage from '../../assets/imgs/today.jpg';
 
 
@@ -10,7 +11,7 @@ export default class TaskList extends Component{
     render(){
         const today = moment()
             .locale('en-ca')
-            .format('ddd, MMMM D')
+            .format('ddd, MMMM D, Y')
             
         return(
             <View style={styles.container}>
@@ -19,12 +20,14 @@ export default class TaskList extends Component{
                     style={styles.background}
                 >
                     <View style={styles.titleBar}>
-                        <Text style={styles.today}>Today</Text>
-                        <Text style={styles.today}>{today}</Text>
+                        <Text style={styles.title}>Today</Text>
+                        <Text style={styles.subTitle}>{today}</Text>
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                    <Text>TaskList</Text>
+                    <Text>Task#01</Text>
+                    <Text>Task#02</Text>
+                    <Text>Task#03</Text>
                 </View>
             </View>
         );
@@ -45,9 +48,18 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
     },
-    today: {
-        color: '#EEE',
-        fontSize: 30,
-        fontFamily: 'Helvetica'
+    title: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.secondary,
+        fontSize: 50,
+        marginLeft: 20,
+        marginBottom: 20
+    },
+    subTitle: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.secondary,
+        fontSize: 20,
+        marginLeft: 20,
+        marginBottom: 30
     }
 });
