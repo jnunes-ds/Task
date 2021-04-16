@@ -1,18 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import commonStyles from '../commomStyles';
 
 export default props => {
     const Done = !props.done ? "" : props.done + "";
+    const doneOrNotStyle = props.done 
+            ? { textDecorationLine: 'line-through' }
+            : {}
+
     return (
         <View style={styles.container}>
             <View style={styles.checkContainer}>
                 {getCheckView(props.done)}
             </View>
             <View>
-                <Text>{props.desc}</Text>
+                <Text 
+                    style={[styles.desc, doneOrNotStyle]}
+                >
+                    {props.desc}
+                    </Text>
                 <Text>{props.estimateAt + ""}</Text>
                 <Text>{Done}</Text>
             </View>
@@ -65,5 +73,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#4d7031',
         alignItems: 'center',
         justifyContent: 'center'
+    }, 
+    desc: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.mainText,
+        fontSize: 15
     }
 });
