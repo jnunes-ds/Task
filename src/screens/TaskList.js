@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { 
     ImageBackground, Text, View, 
-    StyleSheet, FlatList 
+    StyleSheet, FlatList, 
+    TouchableOpacity, Platform 
 } from 'react-native';
 import moment from 'moment';
 import 'moment/locale/en-ca';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import commonStyles from '../commomStyles';
 import todayImage from '../../assets/imgs/today.jpg';
 
 import Task from '../components/Task';
+import commomStyles from '../commomStyles';
 
 
 export default class TaskList extends Component{
     state = {
+        showDoneTasks: true,
         tasks: [
             {
                 id: Math.random(),
@@ -28,6 +33,10 @@ export default class TaskList extends Component{
                 done: null
             }
         ]
+    }
+
+    toggleFilter = () => {
+        this.setState({ showDoneTasks: !this.state.showDoneTasks })
     }
 
     toggleTask = taskId => {
@@ -52,6 +61,20 @@ export default class TaskList extends Component{
                     source={todayImage}
                     style={styles.background}
                 >
+                    <View style={styles.iconBar}>
+                        <TouchableOpacity
+                            onPress={this.toggleFilter}
+                        >
+                            <Icon 
+                                name={
+                                    this.state.showDoneTasks
+                                    ? 'eye' : 'eye-slash'
+                                }
+                                size={20}
+                                color={commomStyles.colors.secondary} 
+                            />
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.titleBar}>
                         <Text style={styles.title}>Today</Text>
                         <Text style={styles.subTitle}>{today}</Text>
@@ -97,5 +120,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginLeft: 20,
         marginBottom: 30
+    },
+    iconBar: {
+        flexDirection: 'row',
+        marginHorizontal: 20,
+        justifyContent: 'flex-end',
+        marginTop: Platform.OS == 'ios' ? 40 : 10
     }
 });
