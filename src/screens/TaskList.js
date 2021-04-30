@@ -13,12 +13,14 @@ import commonStyles from '../commomStyles';
 import todayImage from '../../assets/imgs/today.jpg';
 
 import Task from '../components/Task';
+import AddTask from './AddTask'
 import commomStyles from '../commomStyles';
 
 
 export default class TaskList extends Component{
     state = {
         showDoneTasks: true,
+        showAddTask: true,
         visibleTasks: [],
         tasks: [
             {
@@ -74,6 +76,10 @@ export default class TaskList extends Component{
             
         return(
             <View style={styles.container}>
+                <AddTask 
+                    isVisible={this.state.showAddTask}
+                    onCancel={() => this.setState({ showAddTask: false })}
+                />
                 <ImageBackground
                     source={todayImage}
                     style={styles.background}
