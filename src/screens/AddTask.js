@@ -4,11 +4,20 @@ import {
     View,
     StyleSheet,
     TouchableWithoutFeedback,
+    TouchableOpacity,
     Text,
+    TextInput
 } from 'react-native';
 import commomStyles from '../commomStyles';
 
+
+const initialState = { desc: '' }
 export default class AddTask extends Component{
+    
+    state = {
+        ...initialState 
+    }
+    
     render(){
         return (
             <Modal
@@ -26,6 +35,22 @@ export default class AddTask extends Component{
                 </TouchableWithoutFeedback>
                 <View style={styles.container}>
                     <Text style={styles.header}>Nova tarefa</Text>
+                    <TextInput 
+                        style={styles.input}
+                        placeholder="Informe a descrição..."
+                        onChangeText={desc => this.setState({ desc })}
+                        value={this.state.desc}    
+                    />
+                    <View style={styles.buttons}>
+                        <TouchableOpacity
+                            onPress={this.props.onCancel}
+                        >
+                            <Text style={styles.button}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={styles.button}>Salvar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <TouchableWithoutFeedback
                     onPress={this.props.onCancel}
@@ -45,7 +70,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.7)'
     },
     container: {
-        flex: 3,
+        flex: 1,
         backgroundColor: '#fff'
     },
     header: {
@@ -56,5 +81,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 18,
         padding: 15
+    },
+    input: {
+        fontFamily: commomStyles.fontFamily,
+        width: '90%',
+        height: 40,
+        margin: 15,
+        backgroundColor: '#FFF',
+        borderWidth: 1,
+        borderColor: '#E3E3E3',
+        borderRadius: 6
+    },
+    buttons: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    button: {
+        margin: 20,
+        marginRight: 30,
+        color: commomStyles.colors.today
     }
 });
