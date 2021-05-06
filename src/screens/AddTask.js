@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    Platform,
     Modal,
     View,
     StyleSheet,
@@ -8,14 +9,53 @@ import {
     Text,
     TextInput
 } from 'react-native';
+
+import moment from  'moment';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
 import commomStyles from '../commomStyles';
 
 
-const initialState = { desc: '' }
+const initialState = { 
+    desc: '', 
+    date: new Date(), 
+    showDatePicker: false 
+}
 export default class AddTask extends Component{
     
     state = {
         ...initialState 
+    }
+
+    getDatePicker = () => {
+        let datePicker = (
+            <DateTimePicker 
+                value={this.state.date}
+                onChange={(_, date) => this.setState({
+                     date,
+                     showDatePicker: false 
+                    })}
+                mode="date"
+            />
+        );
+
+        const dateString = moment(this.state.date).format('ddd, MMMM d, YYYY')
+
+        if(Platform.OS === 'android'){
+            datePicker = (
+                <View>
+                    <TouchableOpacity 
+                        onPress={() => this.setState({ showDatePicker: true })}
+                    >
+                        <Text style={styles.date}>
+                            { dateString }
+                        </Text>
+                    </TouchableOpacity>
+                    {this.state.showDatePicker && datePicker}
+                </View>
+            );
+        }
+        return datePicker;
     }
     
     render(){
@@ -41,6 +81,7 @@ export default class AddTask extends Component{
                         onChangeText={desc => this.setState({ desc })}
                         value={this.state.desc}    
                     />
+                    {this.getDatePicker()}
                     <View style={styles.buttons}>
                         <TouchableOpacity
                             onPress={this.props.onCancel}
@@ -100,5 +141,10 @@ const styles = StyleSheet.create({
         margin: 20,
         marginRight: 30,
         color: commomStyles.colors.today
+    },
+    date: {
+        fontFamily: commomStyles.fontFamily,
+        fontSize: 20,
+        marginLeft: 15
     }
 });
