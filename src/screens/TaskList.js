@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { 
-    ImageBackground, Text, View, 
-    StyleSheet, FlatList, 
-    TouchableOpacity, Platform,
+    ImageBackground, 
+    Text, 
+    View, 
+    StyleSheet, 
+    FlatList, 
+    TouchableOpacity, 
+    Platform,
     Alert 
 } from 'react-native';
 import moment from 'moment';
