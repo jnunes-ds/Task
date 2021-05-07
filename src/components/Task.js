@@ -39,8 +39,23 @@ export default props => {
         )
     }
 
+    const getLeftContent = () => {
+        return (
+            <View style={styles.left}>
+                <Icon 
+                    name="trash"
+                    size={20}
+                    color="#FFF"
+                    style={styles.excludeIcon}
+                />
+                <Text style={styles.excludeText}>Delete</Text>
+            </View>
+        )
+    }
+
     return (
         <Swipeable
+            renderLeftActions={getLeftContent}
             renderRightActions={getRightContent}
         >
             <View style={styles.container}>
@@ -89,6 +104,7 @@ const styles = StyleSheet.create({
         borderColor: '#AAA',
         alignItems: 'center',
         paddingVertical: 10,
+        backgroundColor: '#FFF'
     },
     checkContainer: {
         width: "20%",
@@ -118,6 +134,21 @@ const styles = StyleSheet.create({
     date: {
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subtext,
+    },
+    excludeIcon: {
+        marginLeft: 10
+    },
+    excludeText: {
+        fontFamily: commonStyles.fontFamily,
+        color: '#FFF',
+        fontSize: 20,
+        margin: 10
+    },
+    left: {
+        flex: 1,
+        backgroundColor: 'red',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     right: {
         backgroundColor: 'red',
